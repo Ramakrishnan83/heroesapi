@@ -41,6 +41,20 @@ class HeroControllerTest {
                 .andExpect(jsonPath("[0].heroName").value("wonderMan"));
     }
 
+    @Test
+    @DisplayName("Get one hero")
+    void getOneHero() throws Exception {
+        mockMvc.perform(get("/heroes/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value("1"))
+                .andExpect(jsonPath("heroName").value("wonderMan"));
+
+        mockMvc.perform(get("/heroes/23"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value("23"))
+                .andExpect(jsonPath("heroName").value("wonder woman"));
+    }
+
 //    @Test
 //    @DisplayName("Add Hero")
 //    void addNewHero(){
