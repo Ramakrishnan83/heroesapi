@@ -75,7 +75,7 @@ Response Body:
 “power”:”Test”,
 “speed”: “Test”,
 “agility”: “Test”,
-“description”:”Test”,
+“description”:”Test Entry”,
 “story” : “Test”
 
 
