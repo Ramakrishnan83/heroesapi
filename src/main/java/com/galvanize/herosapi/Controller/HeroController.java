@@ -27,5 +27,4 @@ public class HeroController {
     public HeroDto getHeroDetail(@PathVariable String id) {
         return heroService.fetchHeroById(id);
     }
-
 }

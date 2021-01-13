@@ -51,12 +51,6 @@ public class HeroService {
     }
 
     public HeroDto fetchHeroById(String id) {
-//        for (HeroDto heroDto : this.heroDtoList) {
-//            if (heroDto.getId().equals(id)) {
-//                return heroDto;
-//            }
-//        }
-//        return null;
         return this.heroDtoList
                 .stream()
                 .filter(heroDto -> {

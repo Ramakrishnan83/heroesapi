@@ -1,73 +1,73 @@
 package com.galvanize.herosapi.Controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.herosapi.model.HeroDto;
 import com.galvanize.herosapi.service.HeroService;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class HeroControllerTest {
+    List<HeroDto> heroDtoList;
+    HeroDto heroDto;
 
-    @Autowired
-    MockMvc mockMvc;
+    @Mock
+    HeroService heroService;
 
-    @Autowired
-    ObjectMapper objectMapper;
+    @BeforeEach
+    void setUp() {
+        heroDtoList = new ArrayList<>();
+        heroDto = HeroDto.builder()
+                .id("1")
+                .heroName("Spider Man")
+                .image("123")
+                .height("51 cm")
+                .specialPower("super speed")
+                .intelligence("super smart")
+                .strength("super strong")
+                .description("super cool")
+                .story("just a cool guy")
+                .agility("very agile")
+                .power("super powerful")
+                .speed("really speedy")
+                .build();
+        heroDtoList.add(heroDto);
 
-    @Test
-    @DisplayName("Get All heroes")
-    void getAllHeroes() throws Exception {
-        mockMvc.perform(get("/heroes"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("[0].id").value(1))
-                .andExpect(jsonPath("[0].heroName").value("wonderMan"));
+        heroDto = HeroDto.builder()
+                .id("23")
+                .heroName("Batman")
+                .image("123")
+                .height("51 cm")
+                .specialPower("super speed")
+                .intelligence("super smart")
+                .strength("super strong")
+                .description("super cool")
+                .story("just a cool guy")
+                .agility("very agile")
+                .power("super powerful")
+                .speed("really speedy")
+                .build();
+        heroDtoList.add(heroDto);
+
     }
 
+
+
     @Test
-    @DisplayName("Get one hero")
-    void getOneHero() throws Exception {
-        mockMvc.perform(get("/heroes/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value("1"))
-                .andExpect(jsonPath("heroName").value("wonderMan"));
+    void getAllHeroes() {
+        when(heroService.fetchAllHeroes()).thenReturn(heroDtoList);
 
-        mockMvc.perform(get("/heroes/23"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value("23"))
-                .andExpect(jsonPath("heroName").value("wonder woman"));
+        HeroController heroController = new HeroController(heroService);
+        List<HeroDto> listFromController = heroController.getAllHeroes();
+        assertEquals(listFromController, heroDtoList);
     }
-
-//    @Test
-//    @DisplayName("Add Hero")
-//    void addNewHero(){
-//
-//        HeroDto input = new HeroDto("1","wonderMan");
-//        mockMvc.perform(
-//                post("/heroes")
-//                        .content(objectMapper.writeValueAsString(input))
-//                        .contentType(MediaType.APPLICATION_JSON)
-//        )
-//                .andExpect(status().isCreated());
-//    }
-
-
-
 }
