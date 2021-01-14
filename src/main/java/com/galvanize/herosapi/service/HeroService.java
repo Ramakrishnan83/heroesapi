@@ -20,20 +20,14 @@ public class HeroService {
         seedData();
     }
 
-
     public List<HeroEntity> fetchAllHeroes() {
-        return this.heroEntityList;
+        return this.heroRepository.findAll();
     }
 
     public HeroEntity fetchHeroByName(String heroName) {
-        return this.heroEntityList
-                .stream()
-                .filter(heroDto -> {
-                    return heroDto.getHeroName().equals(heroName);
-                })
-                .findFirst()
-                .get();
+        return this.heroRepository.findByHeroName(heroName);
     }
+
     private void seedData(){
         heroEntity = HeroEntity.builder()
                 .heroName("wonderMan")

@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class HeroEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
