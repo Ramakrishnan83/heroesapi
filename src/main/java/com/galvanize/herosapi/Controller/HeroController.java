@@ -1,6 +1,6 @@
 package com.galvanize.herosapi.Controller;
 
-import com.galvanize.herosapi.model.HeroDto;
+import com.galvanize.herosapi.model.HeroEntity;
 import com.galvanize.herosapi.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,12 @@ public class HeroController {
     }
 
     @GetMapping
-    public List<HeroDto> getAllHeroes() {
+    public List<HeroEntity> getAllHeroes() {
         return heroService.fetchAllHeroes();
     }
 
-    @GetMapping("/{id}")
-    public HeroDto getHeroDetail(@PathVariable String id) {
-        return heroService.fetchHeroById(id);
+    @GetMapping("/{heroName}")
+    public HeroEntity getHeroDetail(@PathVariable String heroName) {
+        return heroService.fetchHeroByName(heroName);
     }
 }

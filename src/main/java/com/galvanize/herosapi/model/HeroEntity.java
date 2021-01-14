@@ -3,13 +3,19 @@ package com.galvanize.herosapi.model;
 
 import lombok.*;
 
+import javax.persistence.*;
+
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HeroDto {
-    private String id;
+public class HeroEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    private Long id;
     private String heroName;
     private String image;
     private String weight;
@@ -22,4 +28,5 @@ public class HeroDto {
     private String agility;
     private String power;
     private String speed;
+
 }

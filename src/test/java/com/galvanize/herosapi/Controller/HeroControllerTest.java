@@ -1,13 +1,14 @@
 package com.galvanize.herosapi.Controller;
 
-import com.galvanize.herosapi.model.HeroDto;
+import com.galvanize.herosapi.model.HeroEntity;
 import com.galvanize.herosapi.service.HeroService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +16,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class HeroControllerTest {
-    List<HeroDto> heroDtoList;
-    HeroDto heroDto;
+    List<HeroEntity> heroEntityList;
+    HeroEntity heroEntity;
 
     @Mock
     HeroService heroService;
 
     @BeforeEach
     void setUp() {
-        heroDtoList = new ArrayList<>();
-        heroDto = HeroDto.builder()
-                .id("1")
+        heroEntityList = new ArrayList<>();
+        heroEntity = HeroEntity.builder()
+                .id(1L)
                 .heroName("Spider Man")
                 .image("123")
                 .height("51 cm")
@@ -40,10 +41,10 @@ class HeroControllerTest {
                 .power("super powerful")
                 .speed("really speedy")
                 .build();
-        heroDtoList.add(heroDto);
+        heroEntityList.add(heroEntity);
 
-        heroDto = HeroDto.builder()
-                .id("23")
+        heroEntity = HeroEntity.builder()
+                .id(23L)
                 .heroName("Batman")
                 .image("123")
                 .height("51 cm")
@@ -56,18 +57,14 @@ class HeroControllerTest {
                 .power("super powerful")
                 .speed("really speedy")
                 .build();
-        heroDtoList.add(heroDto);
-
+        heroEntityList.add(heroEntity);
     }
-
-
 
     @Test
     void getAllHeroes() {
-        when(heroService.fetchAllHeroes()).thenReturn(heroDtoList);
-
+        when(heroService.fetchAllHeroes()).thenReturn(heroEntityList);
         HeroController heroController = new HeroController(heroService);
-        List<HeroDto> listFromController = heroController.getAllHeroes();
-        assertEquals(listFromController, heroDtoList);
+        List<HeroEntity> listFromController = heroController.getAllHeroes();
+        assertEquals(listFromController, heroEntityList);
     }
 }
