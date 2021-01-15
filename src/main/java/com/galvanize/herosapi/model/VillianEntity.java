@@ -21,8 +21,8 @@ public class VillianEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
-    private String archRival;
     private String villianName;
+    private String archRival;
     private String realName;
     private String image;
     private String weight;
